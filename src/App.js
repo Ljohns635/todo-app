@@ -112,7 +112,7 @@ class App extends Component {
         <footer className="footer">
           <span className="todo-count">
             <strong>
-              {this.state.todos.filter((todo) => !todo.complete).length}
+              {this.state.todos.filter((todo) => !todo.completed).length}
             </strong>
             item(s) left
           </span>
