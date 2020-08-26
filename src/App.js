@@ -1,7 +1,11 @@
 import React, { Component } from "react";
+import { Route } from "react-router-dom";
 import todosList from "./todos.json";
 import TodoList from "./components/TodolList";
+import Navigation from "./components/Navigation";
 import { v4 as uuidv4 } from "uuid";
+// import TodoItem from "./components/TodoItem";
+
 uuidv4();
 
 //! This is a warning
@@ -77,6 +81,8 @@ class App extends Component {
           <span className="todo-count">
             <strong>0</strong> item(s) left
           </span>
+          <Navigation />
+
           <button onClick={this.onHandleComplete} className="clear-completed">
             Clear completed
           </button>
