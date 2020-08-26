@@ -58,6 +58,14 @@ class App extends Component {
     this.setState({ todos: deleteAllItems });
   };
 
+  //! Tried to get this function working
+  // tracker = () => {
+  //   const todoTracker = this.state.todos.filter(
+  //     ((todo) => !todo.complete).length
+  //   );
+  //   this.setState({ todos: todoTracker });
+  // };
+
   render() {
     return (
       <section className="todoapp">
@@ -85,7 +93,10 @@ class App extends Component {
             item(s) left
           </span>
           <Navigation />
-
+          {/* //? Need help with the routing */}
+          <Route path="/" />
+          <Route path="/active" />
+          <Route path="/completed" />
           <button onClick={this.onHandleComplete} className="clear-completed">
             Clear completed
           </button>
