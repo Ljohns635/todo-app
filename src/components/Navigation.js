@@ -1,18 +1,24 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 function Navigation(props) {
   return (
     <div className="Navigation">
       <ul className="filters">
         <li>
-          <Link to="/">All</Link>
+          <NavLink activeClassName="selected" exact to="/">
+            All
+          </NavLink>
         </li>
         <li>
-          <Link to="/active">Active</Link>
+          <NavLink activeClassName="selected" to="/active">
+            Active
+          </NavLink>
         </li>
         <li>
-          <Link to="/completed">Completed</Link>
+          <NavLink activeClassName="selected" to="/completed">
+            Completed
+          </NavLink>
         </li>
       </ul>
     </div>

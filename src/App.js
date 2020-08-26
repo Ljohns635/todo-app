@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import todosList from "./todos.json";
 import TodoList from "./components/TodolList";
 import Navigation from "./components/Navigation";
@@ -7,11 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 // import TodoItem from "./components/TodoItem";
 
 uuidv4();
-
-//! This is a warning
-//* This is Caution
-//? This is a question
-//TODO : What needs to be done
+//? Recieved help from Tim La with my routing and css
 
 class App extends Component {
   state = {
@@ -22,7 +18,6 @@ class App extends Component {
     if (evt.key === "Enter") {
       const addedTodo = {
         userId: 1,
-        //id:Math.floor(Math.random() * 30)
         id: uuidv4(),
         title: evt.target.value,
         completed: false,
@@ -58,14 +53,6 @@ class App extends Component {
     this.setState({ todos: deleteAllItems });
   };
 
-  //! Tried to get this function working
-  // tracker = () => {
-  //   const todoTracker = this.state.todos.filter(
-  //     ((todo) => !todo.complete).length
-  //   );
-  //   this.setState({ todos: todoTracker });
-  // };
-
   render() {
     return (
       <section className="todoapp">
@@ -73,18 +60,55 @@ class App extends Component {
           <h1>todos</h1>
           <input
             className="new-todo"
-            // name="title"
-            // value={this.state.text}
             onKeyDown={this.addTodo}
             placeholder="What needs to be done?"
             autoFocus
           />
         </header>
-        <TodoList
-          todos={this.state.todos}
-          onChange={this.onHandleDelete}
-          onToggle={this.onToggle}
-        />
+        <Switch>
+          <Route
+            exact
+            path="/"
+            render={(props) => (
+              <TodoList
+                {...props}
+                todos={this.state.todos}
+                onChange={this.onHandleDelete}
+                onToggle={this.onToggle}
+              />
+            )}
+          />
+
+          <Route
+            exact
+            path="/active"
+            render={(props) => (
+              <TodoList
+                {...props}
+                todos={this.state.todos.filter(
+                  (todo) => todo.completed === false
+                )}
+                onChange={this.onHandleDelete}
+                onToggle={this.onToggle}
+              />
+            )}
+          />
+          <Route
+            exact
+            path="/completed"
+            render={(props) => (
+              <TodoList
+                {...props}
+                todos={this.state.todos.filter(
+                  (todo) => todo.completed === true
+                )}
+                onChange={this.onHandleDelete}
+                onToggle={this.onToggle}
+              />
+            )}
+          />
+        </Switch>
+
         <footer className="footer">
           <span className="todo-count">
             <strong>
@@ -93,10 +117,6 @@ class App extends Component {
             item(s) left
           </span>
           <Navigation />
-          {/* //? Need help with the routing */}
-          <Route path="/" />
-          <Route path="/active" />
-          <Route path="/completed" />
           <button onClick={this.onHandleComplete} className="clear-completed">
             Clear completed
           </button>
