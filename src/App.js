@@ -2,9 +2,12 @@ import React, { Component } from "react";
 import todosList from "./todos.json";
 import { v4 as uuidv4 } from "uuid";
 uuidv4();
-//recieved help Tim La
-//recieved help from Suri
-//Worked in a group with Eleanor Hall and Martin Villa
+
+//! This is a warning
+//* This is Caution
+//? This is a question
+//TODO : What needs to be done
+
 class App extends Component {
   state = {
     todos: todosList,
