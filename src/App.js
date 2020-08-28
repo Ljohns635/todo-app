@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { Route, Switch } from "react-router-dom";
 import todosList from "./todos.json";
 import TodoList from "./components/TodolList";
@@ -8,122 +8,106 @@ import { v4 as uuidv4 } from "uuid";
 
 uuidv4();
 //? Recieved help from Tim La with my routing and css
+const App = (props) => {
+  const [todos, setTodos] = useState(todosList);
 
-class App extends Component {
-  state = {
-    todos: todosList,
-  };
-
-  addTodo = (evt) => {
+  const addTodo = (evt) => {
     if (evt.key === "Enter") {
-      const addedTodo = {
+      let addedTodo = {
         userId: 1,
         id: uuidv4(),
         title: evt.target.value,
         completed: false,
       };
 
-      this.setState({
-        todos: [...this.state.todos, addedTodo],
-      });
+      setTodos([...todos, addedTodo]);
       evt.target.value = "";
     }
   };
-  onToggle = (id) => {
-    let makingNewTodos = this.state.todos.map((todo) => {
+
+  const onToggle = (id) => {
+    let makingNewTodos = todos.map((todo) => {
       if (id === todo.id) {
         return { ...todo, completed: !todo.completed };
       }
       return { ...todo };
     });
-    this.setState({
-      todos: makingNewTodos,
-    });
+    setTodos(makingNewTodos);
   };
 
-  onHandleDelete = (id) => {
-    const deleteItem = this.state.todos.filter((todo) => todo.id !== id);
-    this.setState({ todos: deleteItem });
+  const onHandleDelete = (id) => {
+    const deleteItem = todos.filter((todo) => todo.id !== id);
+    setTodos(deleteItem);
   };
 
-  onHandleComplete = () => {
-    const deleteAllItems = this.state.todos.filter(
-      (todo) => todo.completed !== true
-    );
-    this.setState({ todos: deleteAllItems });
+  const onHandleComplete = () => {
+    const deleteAllItems = todos.filter((todo) => todo.completed !== true);
+    setTodos(deleteAllItems);
   };
 
-  render() {
-    return (
-      <section className="todoapp">
-        <header className="header">
-          <h1>todos</h1>
-          <input
-            className="new-todo"
-            onKeyDown={this.addTodo}
-            placeholder="What needs to be done?"
-            autoFocus
-          />
-        </header>
-        <Switch>
-          <Route
-            exact
-            path="/"
-            render={(props) => (
-              <TodoList
-                {...props}
-                todos={this.state.todos}
-                onChange={this.onHandleDelete}
-                onToggle={this.onToggle}
-              />
-            )}
-          />
+  return (
+    <section className="todoapp">
+      <header className="header">
+        <h1>todos</h1>
+        <input
+          className="new-todo"
+          onKeyDown={addTodo}
+          placeholder="What needs to be done?"
+          autoFocus
+        />
+      </header>
+      <Switch>
+        <Route
+          exact
+          path="/"
+          render={(props) => (
+            <TodoList
+              {...props}
+              todos={todos}
+              onChange={onHandleDelete}
+              onToggle={onToggle}
+            />
+          )}
+        />
 
-          <Route
-            exact
-            path="/active"
-            render={(props) => (
-              <TodoList
-                {...props}
-                todos={this.state.todos.filter(
-                  (todo) => todo.completed === false
-                )}
-                onChange={this.onHandleDelete}
-                onToggle={this.onToggle}
-              />
-            )}
-          />
-          <Route
-            exact
-            path="/completed"
-            render={(props) => (
-              <TodoList
-                {...props}
-                todos={this.state.todos.filter(
-                  (todo) => todo.completed === true
-                )}
-                onChange={this.onHandleDelete}
-                onToggle={this.onToggle}
-              />
-            )}
-          />
-        </Switch>
+        <Route
+          exact
+          path="/active"
+          render={(props) => (
+            <TodoList
+              {...props}
+              todos={todos.filter((todo) => todo.completed === false)}
+              onChange={onHandleDelete}
+              onToggle={onToggle}
+            />
+          )}
+        />
+        <Route
+          exact
+          path="/completed"
+          render={(props) => (
+            <TodoList
+              {...props}
+              todos={todos.filter((todo) => todo.completed === true)}
+              onChange={onHandleDelete}
+              onToggle={onToggle}
+            />
+          )}
+        />
+      </Switch>
 
-        <footer className="footer">
-          <span className="todo-count">
-            <strong>
-              {this.state.todos.filter((todo) => !todo.completed).length}
-            </strong>
-            item(s) left
-          </span>
-          <Navigation />
-          <button onClick={this.onHandleComplete} className="clear-completed">
-            Clear completed
-          </button>
-        </footer>
-      </section>
-    );
-  }
-}
+      <footer className="footer">
+        <span className="todo-count">
+          <strong>{todos.filter((todo) => !todo.completed).length}</strong>
+          item(s) left
+        </span>
+        <Navigation />
+        <button onClick={onHandleComplete} className="clear-completed">
+          Clear completed
+        </button>
+      </footer>
+    </section>
+  );
+};
 
 export default App;
