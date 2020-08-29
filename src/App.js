@@ -4,46 +4,52 @@ import todosList from "./todos.json";
 import TodoList from "./components/TodolList";
 import Navigation from "./components/Navigation";
 import { v4 as uuidv4 } from "uuid";
-// import TodoItem from "./components/TodoItem";
 
 uuidv4();
-//? Recieved help from Tim La with my routing and css
-const App = (props) => {
+
+const App = () => {
   const [todos, setTodos] = useState(todosList);
 
-  const addTodo = (evt) => {
-    if (evt.key === "Enter") {
-      let addedTodo = {
-        userId: 1,
-        id: uuidv4(),
-        title: evt.target.value,
-        completed: false,
-      };
+  // const addTodo = (evt) => {
+  //   if (evt.key === "Enter") {
+  //     let addedTodo = {
+  //       userId: 1,
+  //       id: uuidv4(),
+  //       title: evt.target.value,
+  //       completed: false,
+  //     };
 
-      setTodos([...todos, addedTodo]);
-      evt.target.value = "";
-    }
-  };
+  //     setTodos([...todos, addedTodo]);
+  //     evt.target.value = "";
+  //   }
+  // };
 
-  const onToggle = (id) => {
-    let makingNewTodos = todos.map((todo) => {
-      if (id === todo.id) {
-        return { ...todo, completed: !todo.completed };
-      }
-      return { ...todo };
-    });
-    setTodos(makingNewTodos);
-  };
+  // const handleEvent = (evt) => {
+  //   if (evt.key === "Enter") {
+  //     return reducer;
+  //   }
+  //   evt.target.value = "";
+  // };
 
-  const onHandleDelete = (id) => {
-    const deleteItem = todos.filter((todo) => todo.id !== id);
-    setTodos(deleteItem);
-  };
+  // const onToggle = (id) => {
+  //   let makingNewTodos = todos.map((todo) => {
+  //     if (id === todo.id) {
+  //       return { ...todo, completed: !todo.completed };
+  //     }
+  //     return { ...todo };
+  //   });
+  //   setTodos(makingNewTodos);
+  // };
 
-  const onHandleComplete = () => {
-    const deleteAllItems = todos.filter((todo) => todo.completed !== true);
-    setTodos(deleteAllItems);
-  };
+  // const onHandleDelete = (id) => {
+  //   const deleteItem = todos.filter((todo) => todo.id !== id);
+  //   setTodos(deleteItem);
+  // };
+
+  // const onHandleComplete = () => {
+  //   const deleteAllItems = todos.filter((todo) => todo.completed !== true);
+  //   setTodos(deleteAllItems);
+  // };
 
   return (
     <section className="todoapp">
@@ -51,19 +57,19 @@ const App = (props) => {
         <h1>todos</h1>
         <input
           className="new-todo"
-          onKeyDown={addTodo}
+          // onKeyDown={handleEvent}
           placeholder="What needs to be done?"
           autoFocus
         />
       </header>
-      <Switch>
+      {/* <Switch>
         <Route
           exact
           path="/"
           render={(props) => (
             <TodoList
               {...props}
-              todos={todos}
+              todos={addTodo}
               onChange={onHandleDelete}
               onToggle={onToggle}
             />
@@ -94,17 +100,18 @@ const App = (props) => {
             />
           )}
         />
-      </Switch>
+      </Switch> */}
 
       <footer className="footer">
         <span className="todo-count">
-          <strong>{todos.filter((todo) => !todo.completed).length}</strong>
+          <strong>
+            {/*{todos.filter((todo) => !todo.completed).length}*/}
+          </strong>
           item(s) left
         </span>
         <Navigation />
-        <button onClick={onHandleComplete} className="clear-completed">
-          Clear completed
-        </button>
+        {/* <button onClick={onHandleComplete} className="clear-completed"> */}
+        <button className="clear-completed">Clear completed</button>
       </footer>
     </section>
   );

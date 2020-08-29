@@ -5,10 +5,17 @@ import { Provider } from "react-redux";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+import { createStore } from "redux";
+import reducers from "./reducers/reducers";
+import { composeWithDevTools } from "redux-devtools-extension";
+
+const store = createStore(reducers, composeWithDevTools());
 
 ReactDOM.render(
   <BrowserRouter>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </BrowserRouter>,
   document.getElementById("root")
 );
