@@ -1,5 +1,5 @@
 import React from "react";
-
+import { connect } from "react-redux";
 const TodoItem = (props) => {
   return (
     <li className={props.completed ? "completed" : ""}>
@@ -17,4 +17,10 @@ const TodoItem = (props) => {
   );
 };
 
-export default TodoItem;
+const mapStateToProps = (state) => {
+  return {
+    todo: state.list,
+  };
+};
+
+export default connect(mapStateToProps)(TodoItem);

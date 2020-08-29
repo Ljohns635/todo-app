@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import { Route, Switch } from "react-router-dom";
 import todosList from "./todos.json";
 import TodoList from "./components/TodolList";
 import Navigation from "./components/Navigation";
+
 import { v4 as uuidv4 } from "uuid";
 
 uuidv4();
 
 const App = () => {
-  const [todos, setTodos] = useState(todosList);
+  // const [todos, setTodos] = useState(todosList);
 
   // const addTodo = (evt) => {
   //   if (evt.key === "Enter") {
@@ -62,16 +63,16 @@ const App = () => {
           autoFocus
         />
       </header>
-      {/* <Switch>
+      <Switch>
         <Route
           exact
           path="/"
           render={(props) => (
             <TodoList
-              {...props}
-              todos={addTodo}
-              onChange={onHandleDelete}
-              onToggle={onToggle}
+            // {...props}
+            // todos={addTodo}
+            // onChange={onHandleDelete}
+            // onToggle={onToggle}
             />
           )}
         />
@@ -81,10 +82,10 @@ const App = () => {
           path="/active"
           render={(props) => (
             <TodoList
-              {...props}
-              todos={todos.filter((todo) => todo.completed === false)}
-              onChange={onHandleDelete}
-              onToggle={onToggle}
+            // {...props}
+            // todos={todos.filter((todo) => todo.completed === false)}
+            // onChange={onHandleDelete}
+            // onToggle={onToggle}
             />
           )}
         />
@@ -93,14 +94,14 @@ const App = () => {
           path="/completed"
           render={(props) => (
             <TodoList
-              {...props}
-              todos={todos.filter((todo) => todo.completed === true)}
-              onChange={onHandleDelete}
-              onToggle={onToggle}
+            // {...props}
+            // todos={todos.filter((todo) => todo.completed === true)}
+            // onChange={onHandleDelete}
+            // onToggle={onToggle}
             />
           )}
         />
-      </Switch> */}
+      </Switch>
 
       <footer className="footer">
         <span className="todo-count">

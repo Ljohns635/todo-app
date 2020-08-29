@@ -6,10 +6,10 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { createStore } from "redux";
-import reducers from "./reducers/reducers";
+import allReducers from "./reducers";
 import { composeWithDevTools } from "redux-devtools-extension";
 
-const store = createStore(reducers, composeWithDevTools());
+const store = createStore(allReducers, composeWithDevTools());
 
 ReactDOM.render(
   <BrowserRouter>
