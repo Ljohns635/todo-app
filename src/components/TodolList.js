@@ -3,16 +3,17 @@ import TodoItem from "./TodoItem";
 import { connect } from "react-redux";
 
 const TodoList = (props) => {
+  console.log(props);
   return (
     <section className="main">
       <ul className="todo-list">
-        {/* {props.todos.map((todo) => (
+        {/* {props.list.map((todo) => (
           <TodoItem
             key={todo.id}
             title={todo.title}
-            onToggle={props.onToggle}
+            onToggle={props.toggleTodo}
             id={todo.id}
-            delete={props.onChange}
+            delete={props.deleteTodo}
           />
         ))} */}
       </ul>
@@ -27,4 +28,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(TodoList);
+const mapDispatchToProps = {};
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodoList);

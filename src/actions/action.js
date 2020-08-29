@@ -5,7 +5,7 @@ const TOGGLE_TODO = "TOGGLE_TODO";
 const DELETE_TODO = "DELETE_TODO";
 const CLEAR_COMPLETED_TODOS = "CLEAR_COMPLETED_TODOS";
 
-export default addTodo = () => {
+export const addTodo = () => {
   return {
     type: ADD_TODO,
     payload: {
@@ -17,21 +17,21 @@ export default addTodo = () => {
   };
 };
 
-export default toggleTodo = (id) => {
+export const toggleTodo = (id) => {
   return {
     type: TOGGLE_TODO,
     payload: id,
   };
 };
 
-export default deleteTodo = (id) => {
+export const deleteTodo = (id) => {
   return {
     type: DELETE_TODO,
     payload: id,
   };
 };
 
-export default clearCompletedTodos = (completed) => {
+export const clearCompletedTodos = (completed) => {
   return {
     type: CLEAR_COMPLETED_TODOS,
     payload: completed,
