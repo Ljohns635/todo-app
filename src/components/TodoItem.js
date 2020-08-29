@@ -1,5 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
+import {
+  addTodo,
+  toggleTodo,
+  deleteTodo,
+  clearCompletedTodos,
+} from "../actions/action";
 const TodoItem = (props) => {
   return (
     <li className={props.completed ? "completed" : ""}>
@@ -23,4 +29,24 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(TodoItem);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addTodo: () => {
+      dispatch(addTodo());
+    },
+
+    toggleTodo: () => {
+      dispatch(toggleTodo());
+    },
+
+    deleteTodo: () => {
+      dispatch(deleteTodo());
+    },
+
+    clearCompletedTodos: () => {
+      dispatch(clearCompletedTodos());
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodoItem);

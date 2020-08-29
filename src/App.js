@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import todosList from "./todos.json";
+// import todosList from "./todos.json";
 import TodoList from "./components/TodolList";
 import Navigation from "./components/Navigation";
 
