@@ -4,43 +4,44 @@ import { connect } from "react-redux";
 import { addTodo, toggleTodo, deleteTodo } from "../actions/action";
 
 const TodoList = (props) => {
+  const { list } = props;
   console.log(props);
   return (
     <section className="main">
       <ul className="todo-list">
-        {/* {props.list.map((todo) => (
+        {list.todos.map((list) => (
           <TodoItem
-            key={todo.id}
-            title={todo.title}
-            onToggle={props.toggleTodo}
-            id={todo.id}
-            delete={props.deleteTodo}
+            key={list.id}
+            title={list.title}
+            onToggle={list.toggleTodo}
+            id={list.id}
+            delete={list.deleteTodo}
           />
-        ))} */}
+        ))}
       </ul>
     </section>
   );
 };
-
+//? reference https://redux.js.org/basics/usage-with-react
 const mapStateToProps = (state) => {
   console.log(state);
   return {
-    todo: state.list,
+    list: state.list,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addTodo: () => {
-      dispatch(addTodo());
+    addTodo: (title) => {
+      dispatch(addTodo(title));
     },
 
-    toggleTodo: () => {
-      dispatch(toggleTodo());
+    toggleTodo: (id) => {
+      dispatch(toggleTodo(id));
     },
 
-    deleteTodo: () => {
-      dispatch(deleteTodo());
+    deleteTodo: (id) => {
+      dispatch(deleteTodo(id));
     },
   };
 };

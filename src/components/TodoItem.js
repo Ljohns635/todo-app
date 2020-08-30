@@ -25,7 +25,7 @@ const TodoItem = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    todo: state.list,
+    list: state.list,
   };
 };
 
