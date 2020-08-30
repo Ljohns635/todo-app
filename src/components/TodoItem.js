@@ -7,6 +7,7 @@ import {
   clearCompletedTodos,
 } from "../actions/action";
 const TodoItem = (props) => {
+  const { list } = props;
   return (
     <li className={props.completed ? "completed" : ""}>
       <div className="view">

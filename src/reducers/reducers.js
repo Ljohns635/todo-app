@@ -14,7 +14,7 @@ const initialState = {
 const reducers = (state = initialState, action) => {
   switch (action.type) {
     case ADD_TODO:
-      return [...state, action.payload];
+      return [...state, action.payload.title];
 
     case TOGGLE_TODO:
       return state.map((todo) => {
