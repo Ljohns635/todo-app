@@ -2,8 +2,8 @@ import {
   ADD_TODO,
   TOGGLE_TODO,
   DELETE_TODO,
-  CLEAR_COMPLETE_TODOS,
-} from "react";
+  CLEAR_COMPLETED_TODOS,
+} from "../actions/action";
 
 import todosList from "../todos.json";
 
@@ -14,7 +14,17 @@ const initialState = {
 const reducers = (state = initialState, action) => {
   switch (action.type) {
     case ADD_TODO:
-      return [...state, action.payload.title];
+      return Object.assign({}, state, {
+        todos: [
+          ...state.todos,
+          {
+            userId: action.userId,
+            id: action.id,
+            title: action.title,
+            completed: action.completed,
+          },
+        ],
+      });
 
     case TOGGLE_TODO:
       return state.map((todo) => {
@@ -26,8 +36,8 @@ const reducers = (state = initialState, action) => {
     case DELETE_TODO:
       return state.filter((todo) => todo !== todo.action.payload.id);
 
-    case CLEAR_COMPLETE_TODOS:
-      return state.filter((todo) => todo.action.payload.completed !== true);
+    case CLEAR_COMPLETED_TODOS:
+      return state.filter((todo) => todo.completed !== true);
     default:
       return state;
   }

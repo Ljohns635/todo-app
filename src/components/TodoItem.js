@@ -1,53 +1,23 @@
 import React from "react";
-import { connect } from "react-redux";
-import {
-  addTodo,
-  toggleTodo,
-  deleteTodo,
-  clearCompletedTodos,
-} from "../actions/action";
-const TodoItem = (props) => {
-  const { list } = props;
+import DeleteTodo from "../container/DeleteTodo";
+
+const TodoItem = ({ id, onClick, completed, title }) => {
+  // console.log(props);
   return (
-    <li className={props.completed ? "completed" : ""}>
+    <li className={completed ? "completed" : ""}>
       <div className="view">
         <input
           className="toggle"
           type="checkbox"
-          checked={props.completed}
-          onClick={(evt) => props.onToggle(props.id)}
+          checked={completed}
+          onClick={onClick}
         />
-        <label>{props.title}</label>
-        <button onClick={(evt) => props.delete(props.id)} className="destroy" />
+        <label>{title}</label>
+        <DeleteTodo id={id} />
       </div>
     </li>
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    list: state.list,
-  };
-};
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addTodo: () => {
-      dispatch(addTodo());
-    },
-
-    toggleTodo: () => {
-      dispatch(toggleTodo());
-    },
-
-    deleteTodo: () => {
-      dispatch(deleteTodo());
-    },
-
-    clearCompletedTodos: () => {
-      dispatch(clearCompletedTodos());
-    },
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(TodoItem);
+export default TodoItem;
