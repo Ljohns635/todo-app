@@ -1,46 +1,48 @@
+import { todos as initialTodos } from "../todos";
 import {
-  ADD_TODO,
-  TOGGLE_TODO,
-  DELETE_TODO,
-  CLEAR_COMPLETED_TODOS,
+  ADDTODO,
+  TOGGLETODO,
+  DELETETODO,
+  CLEARCOMPLETEDTODOS,
 } from "../actions/action";
+import { v4 as uuidv4 } from "uuid";
 
-import todosList from "../todos.json";
-
-const initialState = {
-  todos: todosList,
-};
-
-const reducers = (state = initialState, action) => {
+export const todos = (state = initialTodos, action) => {
   switch (action.type) {
-    case ADD_TODO:
-      return Object.assign({}, state, {
-        todos: [
-          ...state.todos,
-          {
-            userId: action.userId,
-            id: action.id,
-            title: action.title,
-            completed: action.completed,
-          },
-        ],
-      });
-
-    case TOGGLE_TODO:
-      return state.map((todo) => {
-        if (todo === !todo.action.payload.id) {
-          return { ...state, completed: !state.completed };
+    case ADDTODO: {
+      const newId = uuidv4();
+      const newTodo = {
+        userId: 1,
+        id: newId,
+        title: action.payload.inputText,
+        completed: false,
+      };
+      return {
+        ...state,
+        [newId]: newTodo,
+      };
+    }
+    case TOGGLETODO: {
+      const newTodos = { ...state };
+      const { id } = action.payload;
+      newTodos[id].completed = !newTodos[id].completed;
+      return newTodos;
+    }
+    case DELETETODO: {
+      const newTodos = { ...state };
+      delete newTodos[action.payload.id];
+      return newTodos;
+    }
+    case CLEARCOMPLETEDTODOS: {
+      const newTodos = { ...state };
+      for (const todo in newTodos) {
+        if (newTodos[todo].completed) {
+          delete newTodos[todo];
         }
-      });
-
-    case DELETE_TODO:
-      return state.filter((todo) => todo !== todo.action.payload.id);
-
-    case CLEAR_COMPLETED_TODOS:
-      return state.filter((todo) => todo.completed !== true);
+      }
+      return newTodos;
+    }
     default:
       return state;
   }
 };
-
-export default reducers;
